@@ -41,7 +41,7 @@
 // The following define selects which electronics board you have.
 // Please choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_BRAINWAVE_PRO
+  #define MOTHERBOARD BOARD_RAMPS_13_EFB
 #endif
 
 // Define this to set a custom name for your generic Mendel,
@@ -75,16 +75,16 @@
 #define DELTA_SEGMENTS_PER_SECOND 160
 
 // Center-to-center distance of the holes in the diagonal push rods.
-#define DELTA_DIAGONAL_ROD 213.5 // mm
+#define DELTA_DIAGONAL_ROD 185.0    // mm
 
 // Horizontal offset from middle of printer to smooth rod center.
-#define DELTA_SMOOTH_ROD_OFFSET 143.275 // mm
+#define DELTA_SMOOTH_ROD_OFFSET 140.0   // mm
 
 // Horizontal offset of the universal joints on the end effector.
-#define DELTA_EFFECTOR_OFFSET 30.0 // mm
+#define DELTA_EFFECTOR_OFFSET 30.0   // mm
 
 // Horizontal offset of the universal joints on the carriages.
-#define DELTA_CARRIAGE_OFFSET 30.0 // mm
+#define DELTA_CARRIAGE_OFFSET 24.0   //mm
 
 // Horizontal distance bridged by diagonal push rods when effector is centered.
 #define DELTA_RADIUS (DELTA_SMOOTH_ROD_OFFSET-DELTA_EFFECTOR_OFFSET-DELTA_CARRIAGE_OFFSET)
@@ -330,7 +330,7 @@ your extruder heater takes 2 minutes to hit the target on heating.
 // The pullups are needed if you directly connect a mechanical endswitch between the signal and ground pins.
 const bool X_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Y_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
-const bool Z_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
+const bool Z_MIN_ENDSTOP_INVERTING = true;  //Fsr is common circuit open logic, it will become  circuit close when force presure it // set to true to invert the logic of the endstop.
 const bool X_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Y_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
@@ -355,10 +355,10 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define DISABLE_E false // For all extruders
 #define DISABLE_INACTIVE_EXTRUDER true //disable only inactive extruders and keep active extruder enabled
 
-#define INVERT_X_DIR true    // for Mendel set to false, for Orca set to true
-#define INVERT_Y_DIR true    // for Mendel set to true, for Orca set to false
-#define INVERT_Z_DIR true    // for Mendel set to false, for Orca set to true
-#define INVERT_E0_DIR true   // for direct drive extruder v9 set to true, for geared extruder set to false
+#define INVERT_X_DIR false    //false for Rostock min only,  kossel = true    // for Mendel set to false, for Orca set to true
+#define INVERT_Y_DIR false    //false for Rostock min only,  kossel = true    // for Mendel set to true, for Orca set to false
+#define INVERT_Z_DIR false    // false for Rostock min only, kossel = true   // for Mendel set to false, for Orca set to true
+#define INVERT_E0_DIR false   // false for Rostock min only //true   // for direct drive extruder v9 set to true, for geared extruder set to false
 #define INVERT_E1_DIR false   // for direct drive extruder v9 set to true, for geared extruder set to false
 #define INVERT_E2_DIR false   // for direct drive extruder v9 set to true, for geared extruder set to false
 
@@ -441,7 +441,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
   #define X_PROBE_OFFSET_FROM_EXTRUDER 0.0
   #define Y_PROBE_OFFSET_FROM_EXTRUDER 0.0
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER 0.1  // Increase this if the first layer is too thin.
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER 1.0  // Increase this if the first layer is too thin.
 
   #define Z_RAISE_BEFORE_HOMING 4       // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                         // Be sure you have this distance over your Z_MAX_POS in case
@@ -493,7 +493,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // For deltabots this means top and center of the Cartesian print volume.
 #define MANUAL_X_HOME_POS 0
 #define MANUAL_Y_HOME_POS 0
-#define MANUAL_Z_HOME_POS 205  // For delta: Distance between nozzle and print surface after homing.
+#define MANUAL_Z_HOME_POS 192 // For delta: Distance between nozzle and print surface after homing.
 
 //// MOVEMENT SETTINGS
 #define NUM_AXIS 4 // The axis order in all axis related arrays is X, Y, Z, E
@@ -501,18 +501,18 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
 // default settings
 
-#define XYZ_FULL_STEPS_PER_ROTATION 200
-#define XYZ_MICROSTEPS 32
-#define XYZ_BELT_PITCH 2
-#define XYZ_PULLEY_TEETH 20
+#define XYZ_FULL_STEPS_PER_ROTATION 200    // for Motor step angle = 1.8", 200 = 360" / 1.8"
+#define XYZ_MICROSTEPS 16   // for most PoloLu driver microsteps = 16
+#define XYZ_BELT_PITCH 2    // for GT2 belt each pitch = 2 mm
+#define XYZ_PULLEY_TEETH 36  // for Roctock min, it uses pulley with 36 teeth
 #define XYZ_STEPS (XYZ_FULL_STEPS_PER_ROTATION * XYZ_MICROSTEPS / double(XYZ_BELT_PITCH) / double(XYZ_PULLEY_TEETH))
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {XYZ_STEPS, XYZ_STEPS, XYZ_STEPS, 204}
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {XYZ_STEPS, XYZ_STEPS, XYZ_STEPS, 100}
 #define DEFAULT_MAX_FEEDRATE          {200, 200, 200, 200}    // (mm/sec)
 #define DEFAULT_MAX_ACCELERATION      {9000,9000,9000,9000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 
-#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  3000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
+#define DEFAULT_ACCELERATION          1500    //3000 X, Y, Z and E max acceleration in mm/s^2 for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  1500   //3000 X, Y, Z and E max acceleration in mm/s^2 for retracts
 
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
@@ -577,7 +577,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
 // The RepRapDiscount Smart Controller (white PCB)
 // http://reprap.org/wiki/RepRapDiscount_Smart_Controller
-//#define REPRAP_DISCOUNT_SMART_CONTROLLER
+#define REPRAP_DISCOUNT_SMART_CONTROLLER
 
 // The GADGETS3D G3D LCD/SD Controller (blue PCB)
 // http://reprap.org/wiki/RAMPS_1.3/1.4_GADGETS3D_Shield_with_Panel
